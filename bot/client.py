@@ -1,3 +1,4 @@
+import os
 import uuid
 import asyncio
 import json
@@ -20,11 +21,21 @@ class MyRpcClient:
 
     async def connect(self) -> "MyRpcClient":
         """Установка соединения с RabbitMQ, создание очереди для получения запросов. Начать слушать очередь"""
-        self.connection = await connect(
-            "amqp://guest:guest@localhost:5672/", loop = self.loop, channel_number = 1,
-        )
+        self.connection = None
+        while(self.connection == None):
+            try:
+                self.connection = await connect(
+                    os.environ["AMQP_URL"], loop=self.loop,
+                )
+            except:
+                print('waiting for connection')
+                await asyncio.sleep(100)
+
+        '''self.connection = await connect(
+            os.environ["AMQP_URL"], loop=self.loop,
+        ) '''  
         self.channel = await self.connection.channel()
-        self.callback_queue = await self.channel.declare_queue(exclusive=True, durable=True)
+        self.callback_queue = await self.channel.declare_queue(exclusive = True, durable = True)
         await self.callback_queue.consume(self.on_response)
         return self
 
@@ -39,7 +50,7 @@ class MyRpcClient:
         inputJson = message.body.decode("UTF-8")
         inputMessage = json.loads(inputJson)
         logging.info("Message from server: %r", inputMessage['text'])
-        await message.ack()
+        logging.info(" [x] Response complete")
 
     async def call(self, text: str, id: int) -> int:
         """Создать запрос к очереди. Передать id пользователя и ссылки на веса модели выбранного пользователем стиля в формате json"""
@@ -51,15 +62,18 @@ class MyRpcClient:
         }
         jsonParams = json.dumps(params)
         self.futures[correlation_id] = future
-
-        await self.channel.default_exchange.publish(
-            Message(
-                jsonParams.encode(),
-                content_type = "application/json",
-                correlation_id = correlation_id,
-                reply_to = self.callback_queue.name,
-            ),
-            routing_key = "rpc_queue",
-        )
+        
+        try:
+            await self.channel.default_exchange.publish(
+                Message(
+                    jsonParams.encode(),
+                    content_type = "application/json",
+                    correlation_id = correlation_id,
+                    reply_to = self.callback_queue.name,
+                ),
+                routing_key = "rpc_queue",
+            )
+        except:
+            logging.exception(" [x] Message not sending")
 
         return await future
