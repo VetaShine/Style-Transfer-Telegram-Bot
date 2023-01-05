@@ -16,4 +16,4 @@
 3. [Server](https://github.com/VetaShine/Style-Transfer-Telegram-Bot/tree/main/server) - сервер, стилизирующий изображения 
 * [server](https://github.com/VetaShine/Style-Transfer-Telegram-Bot/blob/main/server/server.py) - реализация сервера
 ## Архитектура проекта:
-![screenshot of sample](https://disk.yandex.ru/i/osGLqPg4LCpHxw)
+![screenshot of sample](https://github.com/VetaShine/OOPch/blob/main/img.jpg)
