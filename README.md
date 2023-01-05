@@ -18,4 +18,4 @@
 ## Архитектура проекта:
 ![screenshot of sample](https://github.com/VetaShine/OOPch/blob/main/img.jpg)
 ## Запуск с помощью docker-compose:
-Предварительно перед запуском в файле 
+Перед запуском в файле docker-compose.yml нужно добавить токен бота и пароль от 
