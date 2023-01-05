@@ -20,7 +20,7 @@ class MyRpcClient:
         self.loop = asyncio.get_running_loop()
 
     async def connect(self) -> "MyRpcClient":
-        """Установка соединения с RabbitMQ, создание очереди для получения запросов. Начать слушать очередь"""
+        """ Установка соединения с RabbitMQ, создание очереди для получения запросов, старт прослушивания очереди """
         self.connection = None
         while(self.connection == None):
             try:
@@ -29,18 +29,15 @@ class MyRpcClient:
                 )
             except:
                 print('waiting for connection')
-                await asyncio.sleep(100)
+                await asyncio.sleep(50)
 
-        '''self.connection = await connect(
-            os.environ["AMQP_URL"], loop=self.loop,
-        ) '''  
         self.channel = await self.connection.channel()
         self.callback_queue = await self.channel.declare_queue(exclusive = True, durable = True)
         await self.callback_queue.consume(self.on_response)
         return self
 
     async def on_response(self, message: AbstractIncomingMessage) -> None:
-        """Callback. Действие на возврат ответа message от сервера"""
+        """ Действие на возврат ответа message от сервера """
         if message.correlation_id is None:
             logging.warning(f"Bad message {message!r}")
             return
@@ -53,7 +50,7 @@ class MyRpcClient:
         logging.info(" [x] Response complete")
 
     async def call(self, text: str, id: int) -> int:
-        """Создать запрос к очереди. Передать id пользователя и ссылки на веса модели выбранного пользователем стиля в формате json"""
+        """ Создание запроса к очередие, передача id пользователя и ссылки на веса модели выбранного пользователем стиля в формате json """
         correlation_id = str(uuid.uuid4())
         future = self.loop.create_future()
         params = {
