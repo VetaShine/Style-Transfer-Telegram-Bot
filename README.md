@@ -6,6 +6,6 @@
 * [utils]() - 
 * [train]() - 
 * [test_on_image]() - 
-* [style-images]() - 
+* [style-images](https://github.com/VetaShine/Style-Transfer-Telegram-Bot/tree/main/model/style-images) - 
 * [training]() - 
 * [launching]() - 
