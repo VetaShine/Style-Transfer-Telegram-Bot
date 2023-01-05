@@ -15,3 +15,5 @@
 * [handler](https://github.com/VetaShine/Style-Transfer-Telegram-Bot/blob/main/bot/handler.py) - обработка сообщений телеграм бота 
 3. [Server](https://github.com/VetaShine/Style-Transfer-Telegram-Bot/tree/main/server) - сервер, стилизирующий изображения 
 * [server](https://github.com/VetaShine/Style-Transfer-Telegram-Bot/blob/main/server/server.py) - реализация сервера
+## Архитектура проекта:
+![screenshot of sample](https://disk.yandex.ru/i/osGLqPg4LCpHxw)
