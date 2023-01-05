@@ -1,5 +1,6 @@
 FROM python:3.8
 
+WORKDIR /app
 WORKDIR /bot/
 
 ADD ./requirements.txt /bot/requirements.txt
