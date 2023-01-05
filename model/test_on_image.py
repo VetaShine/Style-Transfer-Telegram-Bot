@@ -5,7 +5,6 @@ import torch
 from torch.autograd import Variable
 import argparse
 import os
-import tqdm
 from torchvision.utils import save_image
 from PIL import Image
 
