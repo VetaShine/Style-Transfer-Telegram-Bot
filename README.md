@@ -1,6 +1,6 @@
 # Style-Transfer-Telegram-Bot
 Проект по предмету "Объектно-ориентированное программирование" - телеграм бот стилизации изображений. Стилизация изображений происходит за счет предварительно подготовленной свёрточной нейронной сети выделения признаков изображений - VGG16 , обученной мною для пяти стилей. Обученные веса модели можно скачать [здесь](https://disk.yandex.ru/d/0HQSxoOTknugWw). Телеграм бот реализован с помощью библиотеки aiogram в асинхронном режиме. Для хранения сообщений пользователя в виде «ключ-значение» используется хранилище данных Redis. Очереди сообщений реализуются с помощью брокера RabbitMQ.
-## Структура проекта:
+## Структура репозитория:
 1. [Model](https://github.com/VetaShine/Style-Transfer-Telegram-Bot/tree/main/model) - модель нейронной сети стилизации изображений 
 * [train](https://github.com/VetaShine/Style-Transfer-Telegram-Bot/blob/main/model/train.py) - обучение модели
 * [models](https://github.com/VetaShine/Style-Transfer-Telegram-Bot/blob/main/model/models.py) - определение модели
@@ -17,3 +17,5 @@
 * [server](https://github.com/VetaShine/Style-Transfer-Telegram-Bot/blob/main/server/server.py) - реализация сервера
 ## Архитектура проекта:
 ![screenshot of sample](https://github.com/VetaShine/OOPch/blob/main/img.jpg)
+## Запуск с помощью docker-compose:
+Предварительно перед запуском в файле 
