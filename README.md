@@ -9,7 +9,7 @@
 * [style-images](https://github.com/VetaShine/Style-Transfer-Telegram-Bot/tree/main/model/style-images) - стилевые изображения
 * [training](https://github.com/VetaShine/Style-Transfer-Telegram-Bot/blob/main/model/Neural_Style_Transfer_Training.ipynb) - notebook обучения модели 
 * [launching](https://github.com/VetaShine/Style-Transfer-Telegram-Bot/blob/main/model/Neural_Style_Transfer_Launching.ipynb) - notebook запуска тестирования модели
-2. [Bot](https://github.com/VetaShine/Style-Transfer-Telegram-Bot/tree/main/bot) - 
+2. [Bot](https://github.com/VetaShine/Style-Transfer-Telegram-Bot/tree/main/bot) - телеграм бот
 * [app](https://github.com/VetaShine/Style-Transfer-Telegram-Bot/blob/main/bot/app.py) - запуск бота, создание диспетчера
 * [client](https://github.com/VetaShine/Style-Transfer-Telegram-Bot/blob/main/bot/client.py) - общение с очередями сообщений в RabbitMQ
 * [handler](https://github.com/VetaShine/Style-Transfer-Telegram-Bot/blob/main/bot/handler.py) - обработка сообщений телеграм бота 
