@@ -19,16 +19,17 @@ def style_image(content_path, name):
 
     # Определение модели, загрузка весов модели 
     transformer = TransformerNet().to(device)
-    transformer.load_state_dict(content_path, map_location ='cpu')
+    transformer.load_state_dict(torch.load(content_path))
     transformer.eval()
 
-    image_tensor = Variable(transform(Image.open('/Users/macbookpro/work_bot/content_image' + str(name) + '.jpg'))).to(device)
+    # Загрузка контентного изображения
+    image_tensor = Variable(transform(Image.open('/app/photo/content_image' + str(name) + '.jpg'))).to(device)
     image_tensor = image_tensor.unsqueeze(0)
     
     # Стилизация изображения
     with torch.no_grad():
         stylized_image = denormalize(transformer(image_tensor)).cpu()
-    save_image(stylized_image, f"/Users/macbookpro/work_bot/stylized_image" + str(name) + ".jpg")
+    save_image(stylized_image, f"/app/photo/stylized_image" + str(name) + ".jpg")
 
 logging.basicConfig(level = logging.INFO)
 
@@ -53,7 +54,9 @@ async def main() -> None:
                 async with message.process(requeue = True):
                     assert message.reply_to is not None
                     inputJson = message.body.decode("UTF-8")
+                    print(inputJson)
                     inputMessage = json.loads(inputJson)
+                    print(inputMessage['text'], inputMessage['user_id'])
                     style_image(inputMessage['text'], inputMessage['user_id'])
                     outputText = inputMessage['user_id']
                     logging.info("Output text: %r", outputText)
