@@ -8,8 +8,6 @@ services:
             - 5672:5672
             - 15672:15672
         hostname: rabbit
-        volumes:
-            - ./rabbitmq/advanced.config:/etc/rabbitmq/advanced.config
         networks:
             - rabbit_net
     redis:
@@ -31,6 +29,9 @@ services:
         environment:
             AMQP_URL: 'amqp://guest:guest@rabbit:5672/?name=Server%20connection'
         restart: on-failure
+        volumes:
+            - /Users/macbookpro/work_bot:/app/photo 
+            - /Users/macbookpro/checkpointsmodel:/app/checkpoints
         networks:
             - rabbit_net
     bot:
@@ -41,12 +42,15 @@ services:
             TOKEN: ' '
             REDIS_HOST: redis
             REDIS_PORT: 6379
-            REDIS_PASSWORD: 'AAHP_3QXdAXzUqit6mPrp3wzyfKdVQmQeiE'
+            REDIS_PASSWORD: ' '
         depends_on:
             - rabbit
             - redis
         networks:
             - rabbit_net
+        volumes:
+            - /Users/macbookpro/work_bot:/app/photo 
+            - /Users/macbookpro/checkpointsmodel:/app/checkpoints
         restart: on-failure
 networks:
     rabbit_net:
