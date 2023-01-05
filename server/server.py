@@ -29,6 +29,8 @@ def style_image(content_path, name):
     # Стилизация изображения
     with torch.no_grad():
         stylized_image = denormalize(transformer(image_tensor)).cpu()
+        
+    # Сохранение сгенерированного изображения
     save_image(stylized_image, f"/app/photo/stylized_image" + str(name) + ".jpg")
 
 logging.basicConfig(level = logging.INFO)
