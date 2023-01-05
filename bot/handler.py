@@ -63,7 +63,7 @@ class HandlerMessages:
             await message.answer("Нужно чуточку подождать!")
             await state.finish()
             await Gen.wait_for_answer.set()
-            # Запрос к серверу
+            # Запрос к серверу в зависимости от выбранного пользователем стиля 
             if(message.text == "В.В.Кандинский «Композиция VII»"):
                 await self.get_answer_and_reply(message.from_user.id, '/app/checkpoints/kandinskyVII_10000.pth', state)
             elif(message.text == "К.Хокусай «Большая волна в Канагаве»"):
@@ -81,16 +81,6 @@ class HandlerMessages:
         async def not_bot(message: types.Message):
             await message.answer("Жаль! Отправь мне «/start», если всё-таки захочешь приступить к стилизации изображения.")   
 
-    def first_register_start_message_handler(self) -> None:
-        """ Начало работы с ботом при наличии состояния """
-        @self._dispatcher.message_handler(commands = "start", state = Gen.wait_for_answer)
-        async def first_starting_bot(message: types.Message, state: FSMContext):
-            await state.finish()
-            keyboard = types.ReplyKeyboardMarkup(resize_keyboard = True)
-            buttons = ["Да, конечно!", "Нет, не хочу."]
-            keyboard.add(*buttons)
-            await message.answer("Привет! Я умею стилизировать изображения, хочешь попробовать?", reply_markup = keyboard) 
-    
     def block_message_for_generation(self) -> None:
         """ Блокирование пользователю новых запросов, пока не будет получен ответ от сервера """
         @self._dispatcher.message_handler(content_types=['text'], state = Gen.wait_for_answer)
@@ -103,5 +93,4 @@ class HandlerMessages:
         self.input_message_and_wait_handler()
         self.send_and_reply_message()
         self.send_bot_about()
-        self.first_register_start_message_handler()
         self.block_message_for_generation()
