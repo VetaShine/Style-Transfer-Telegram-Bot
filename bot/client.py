@@ -50,7 +50,7 @@ class MyRpcClient:
         logging.info(" [x] Response complete")
 
     async def call(self, text: str, id: int) -> int:
-        """ Создание запроса к очередие, передача id пользователя и ссылки на веса модели выбранного пользователем стиля в формате json """
+        """ Создание запроса к очереди, передача id пользователя и ссылки на веса модели выбранного пользователем стиля в формате json """
         correlation_id = str(uuid.uuid4())
         future = self.loop.create_future()
         params = {
