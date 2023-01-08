@@ -19,3 +19,8 @@
 ![screenshot of sample](https://github.com/VetaShine/OOPch/blob/main/img.jpg)
 ## Запуск с помощью docker-compose:
 Перед запуском в файле docker-compose.yml нужно добавить токен бота в апострофы в 42 строке и установить пароль для хранилища данных Redis в 18 строке после ключа «--requirepass» и этот же пароль записать в апострофы в 45 строке. Команды запуска проекта: `docker-compose build`, затем `docker-compose up`.
+## Демонстрация работы телеграм бота:
+![screenshot of sample](https://github.com/VetaShine/OOPch/blob/main/1.jpg)
+![screenshot of sample](https://github.com/VetaShine/OOPch/blob/main/2.jpg)
+![screenshot of sample](https://github.com/VetaShine/OOPch/blob/main/3.jpg)
+![screenshot of sample](https://github.com/VetaShine/OOPch/blob/main/4.jpg)
