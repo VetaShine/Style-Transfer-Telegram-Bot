@@ -25,7 +25,7 @@ class MyClient:
         while(self.connection == None):
             try:
                 self.connection = await connect(
-                    os.environ["AMQP_URL"], loop=self.loop,
+                    os.environ["AMQP_URL"], loop = self.loop,
                 )
             except:
                 print('waiting for connection')
