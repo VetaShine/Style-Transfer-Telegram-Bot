@@ -29,7 +29,7 @@ def style_image(content_path, name):
     # Стилизация изображения
     with torch.no_grad():
         stylized_image = denormalize(transformer(image_tensor)).cpu()
-        
+    
     # Сохранение сгенерированного изображения
     save_image(stylized_image, f"/app/photo/stylized_image" + str(name) + ".jpg")
 
@@ -56,9 +56,7 @@ async def main() -> None:
                 async with message.process(requeue = True):
                     assert message.reply_to is not None
                     inputJson = message.body.decode("UTF-8")
-                    print(inputJson)
                     inputMessage = json.loads(inputJson)
-                    print(inputMessage['text'], inputMessage['user_id'])
                     style_image(inputMessage['text'], inputMessage['user_id'])
                     outputText = inputMessage['user_id']
                     logging.info("Output text: %r", outputText)
