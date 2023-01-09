@@ -9,7 +9,7 @@ from aio_pika.abc import(
     AbstractChannel, AbstractConnection, AbstractIncomingMessage, AbstractQueue,
 )
 
-class MyRpcClient:
+class MyClient:
     connection: AbstractConnection
     channel: AbstractChannel
     callback_queue: AbstractQueue
@@ -19,7 +19,7 @@ class MyRpcClient:
         self.futures: MutableMapping[str, asyncio.Future] = {}
         self.loop = asyncio.get_running_loop()
 
-    async def connect(self) -> "MyRpcClient":
+    async def connect(self) -> "MyClient":
         """ Установка соединения с RabbitMQ, создание очереди для получения запросов, старт прослушивания очереди """
         self.connection = None
         while(self.connection == None):
