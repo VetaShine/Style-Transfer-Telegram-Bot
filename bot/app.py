@@ -3,7 +3,7 @@ import asyncio
 import logging
 from aiogram import Bot
 from aiogram.dispatcher import Dispatcher
-from client import MyRpcClient
+from client import MyClient
 from handler import HandlerMessages
 from aiogram.contrib.fsm_storage.redis import RedisStorage2
 from aioredis import Redis
@@ -11,7 +11,7 @@ import redis
 
 logging.basicConfig(level = logging.INFO)
 
-async def prepare(sendler: MyRpcClient) -> Dispatcher:
+async def prepare(sendler: MyClient) -> Dispatcher:
     """ Создание и конфигурация бота, подключение к RabbitMQ """
     storage = RedisStorage2(host = os.environ['REDIS_HOST'], db = 5, port = os.environ['REDIS_PORT'], password = os.environ['REDIS_PASSWORD'])
     bot = Bot(os.environ['TOKEN'])
@@ -22,7 +22,7 @@ async def prepare(sendler: MyRpcClient) -> Dispatcher:
 
 async def main() -> None:
     # Установка соединения с RabbitMQ
-    sendler = await MyRpcClient().connect()
+    sendler = await MyClient().connect()
     # Создание диспетчера
     dp = await prepare(sendler)
     # Запуск бота
