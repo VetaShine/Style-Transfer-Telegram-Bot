@@ -86,6 +86,12 @@ class HandlerMessages:
         @self._dispatcher.message_handler(content_types = ['text'], state = Generation.wait_for_answer)
         async def warning_gen(message: types.Message, state: FSMContext):
             await message.answer("Сначала необходимо дождаться окончания генерации!")
+    
+    def block_photo_for_generation(self) -> None:
+        """ Блокирование отправки пользователем новой фотографии, пока не будет получен ответ от сервера """
+        @self._dispatcher.message_handler(content_types = ['photo'], state = Generation.wait_for_answer)
+        async def warning_gen_photo(message: types.Message, state: FSMContext):
+            await message.answer("Сначала необходимо дождаться окончания генерации!")
             
     def register_all_handlers(self) -> None:
         self.start_message_handler()
@@ -94,3 +100,4 @@ class HandlerMessages:
         self.send_and_reply_message()
         self.refusal_to_generate()
         self.block_message_for_generation()
+        self.block_photo_for_generation()
